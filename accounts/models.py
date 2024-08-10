@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth.hashers import make_password
 
 class CustomUser(AbstractUser):
     phone_number = models.IntegerField(blank=True, null=True)
@@ -16,3 +17,12 @@ class CustomUser(AbstractUser):
             'refresh': str(refresh),
             'refresh': str(refresh.access_token),
         })
+        
+    # def validate_password(self, value: str) -> str:
+    #     """
+    #     Hash value passed by user.
+
+    #     :param value: password of a user
+    #     :return: a hashed version of the password
+    #     """
+    #     return make_password(value)

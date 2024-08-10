@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 from rest_framework.generics import ListAPIView, GenericAPIView
 from rest_framework import response,status
+from rest_framework.response import Response
 from . import serializers, models
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.sites.shortcuts import get_current_site
@@ -13,6 +14,11 @@ from django.conf import settings
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
 class SignUp(GenericAPIView):
 
@@ -22,8 +28,12 @@ class SignUp(GenericAPIView):
         data = request.data
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        newUser = serializer.save()
         user = serializer.data
+        
+        # Setze das Passwort sicher
+        newUser.set_password(request.data['password'])
+        newUser.save()
 
         # getting tokens
         user_email = models.CustomUser.objects.get(email=user['email'])
@@ -63,3 +73,28 @@ class VerifyEmail(GenericAPIView ):
             return response.Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError as identifier:
             return response.Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+# class LoginView(ObtainAuthToken):
+
+#     def post(self, request, *args, **kwargs):
+#         serializer = self.serializer_class(data=request.data,
+#                                            context={'request': request})
+#         serializer.is_valid(raise_exception=True)
+#         user = serializer.validated_data['user']
+#         token, created = Token.objects.get_or_create(user=user)
+#         return Response({
+#             'token': token.key,
+#             'user_id': user.pk,
+#             'email': user.email
+#         })
+
+
+# @api_view(["POST",])
+# @authentication_classes([TokenAuthentication])
+# @permission_classes([IsAuthenticated])
+# def logout_user(request):
+#     if request.method == "POST":
+#         request.user.auth_token.delete()
+#         return Response({"Message": "You are logged out"}, status=status.HTTP_200_OK)
