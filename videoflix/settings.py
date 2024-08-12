@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'accounts',
     'video',
     'rest_framework_simplejwt',
-    'drf_yasg'
+    'drf_yasg',
+    'video.apps.VideoConfig'
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
