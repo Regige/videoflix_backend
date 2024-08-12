@@ -1,4 +1,5 @@
 from .models import Video
+from .tasks import convert720p
 from django.dispatch import receiver
 from django.db.models.signals import post_save, post_delete
 import os
@@ -6,12 +7,13 @@ import os
 
 @receiver(post_save, sender=Video)
 def video_post_save(sender, instance, created, **kwargs):
-    print('Video wurde gespeichert')
     if created:
-        print('New object created')
+        convert720p(instance.video_file.path)
 
     
 # post_save.connect(video_post_save, sender=Video)
+
+
 
 
 @receiver(post_delete, sender=Video)
