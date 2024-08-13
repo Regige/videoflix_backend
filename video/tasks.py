@@ -2,7 +2,7 @@ import subprocess
 
 
 def convert720p(source):      
-    new_file_name = source + '_720p.mp4'   
+    new_file_name = source[:-4] + '_720p.mp4'   
     cmd = [
         'ffmpeg',
         '-i', source, 
