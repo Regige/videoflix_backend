@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,12 +50,15 @@ INSTALLED_APPS = [
     'accounts',
     'rest_framework_simplejwt',
     'drf_yasg',
-    'video.apps.VideoConfig'
+    'video.apps.VideoConfig',
+    'debug_toolbar',
+    'django_rq'
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -62,14 +66,15 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 CACHES = {    
     "default": {        
         "BACKEND": "django_redis.cache.RedisCache",        
         "LOCATION": "redis://127.0.0.1:6379/1",        
-        "OPTIONS": {            
+        "OPTIONS": {  
+            "PASSWORD": 'foobared',          
             "CLIENT_CLASS": "django_redis.client.DefaultClient"        
             },        
         "KEY_PREFIX": "videoflix"    
@@ -168,3 +173,28 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1)
+}
+
+CACHE_TTL = 60 * 15
+
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 360
+    }
+}
+    # 'USERNAME': 'some-user',
+    #   'PASSWORD': 'foobared',

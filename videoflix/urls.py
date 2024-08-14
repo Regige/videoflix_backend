@@ -24,6 +24,8 @@ from .swagger import BothHttpAndHttpsSchemaGenerator
 import json
 from django.conf import settings
 from django.conf.urls.static import static
+from debug_toolbar.toolbar import debug_toolbar_urls
+
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -39,9 +41,12 @@ schema_view = get_schema_view(
    permission_classes=[permissions.AllowAny],
 )
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('accounts/', include('accounts.urls'))
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path('accounts/', include('accounts.urls')),
+    path('videos/', include('video.urls')),
+    path('django-rq/', include('django_rq.urls'))
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) + debug_toolbar_urls()
 

@@ -20,6 +20,3 @@ urlpatterns = [
     
     # path('login/', views.LoginView.as_view())
 ]
-
-
-# im header Bearer ...token... verwenden statt Token ...token...
