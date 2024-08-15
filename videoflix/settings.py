@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'video.apps.VideoConfig',
     'debug_toolbar',
-    'django_rq'
+    'django_rq',
+    'import_export'
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
@@ -198,3 +199,9 @@ RQ_QUEUES = {
 }
     # 'USERNAME': 'some-user',
     #   'PASSWORD': 'foobared',
+    
+    
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/staticfiles')
+
+# Damit bei einem abgebrochenem Import nicht Teil daten mit gespeichert werden
+IMPORT_EXPORT_USE_TRANSACTIONS = True 
