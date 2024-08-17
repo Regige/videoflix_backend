@@ -16,12 +16,12 @@ def convert720p(source):
     run = subprocess.run(cmd, capture_output=True)
     
     
-def convert480p(source):      
-    new_file_name = source[:-4] + '_480p.mp4'   
+def convert360p(source):      
+    new_file_name = source[:-4] + '_360p.mp4'   
     cmd = [
         'ffmpeg',
         '-i', source, 
-        '-s', 'hd480',
+        '-s', 'hd360',
         '-c:v', 'libx264',
         '-crf', '23',
         '-c:a', 'aac',
