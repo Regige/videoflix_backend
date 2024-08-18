@@ -19,6 +19,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from django.shortcuts import redirect
 
 class SignUp(GenericAPIView):
 
@@ -68,11 +69,18 @@ class VerifyEmail(GenericAPIView ):
             if not user.is_verified:
                 user.is_verified = True
                 user.save()
-            return response.Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
+                
+            # return response.Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
+            # Redirect to the frontend success page
+            return redirect('http://localhost:4200/main-page')
         except jwt.ExpiredSignatureError as identifier:
-            return response.Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
+            # return response.Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
+            # Redirect to the frontend error page with the expired token message
+            return redirect('https://yourfrontend.com/error?message=Activation Expired')
         except jwt.exceptions.DecodeError as identifier:
-            return response.Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+            # return response.Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+            # Redirect to the frontend error page with the invalid token message
+            return redirect('https://yourfrontend.com/error?message=Invalid Token')
 
 
 
