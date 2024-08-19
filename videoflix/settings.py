@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'video.apps.VideoConfig',
     'debug_toolbar',
     'django_rq',
-    'import_export'
+    'import_export',
+    'django_rest_passwordreset',
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
