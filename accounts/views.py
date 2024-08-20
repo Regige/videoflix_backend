@@ -20,6 +20,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from django.shortcuts import redirect
+from django.template.loader import render_to_string
+
 
 class SignUp(GenericAPIView):
 
@@ -43,8 +45,12 @@ class SignUp(GenericAPIView):
         current_site = get_current_site(request).domain
         relative_link = reverse('email-verify')
         absurl = 'http://'+current_site+relative_link+"?token="+str(tokens)
-        email_body = 'Hi '+user['username'] + \
-            ' Use the link below to verify your email \n' + absurl
+        email_body = render_to_string('verify_email.html', {
+            'username': user['username'],
+            'verification_link': absurl,
+        })
+        # email_body = 'Hi '+user['username'] + \
+        #     ' Use the link below to verify your email \n' + absurl
         data = {'email_body': email_body, 'to_email': user['email'],
                 'email_subject': 'Verify your email'}
 
