@@ -5,50 +5,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Email Verification</title>
-    <style>
-      body {
-        display: flex;
-        justify-content: center;
-        gap: 24px;
-        padding: 10px;
-        font-size: 16px;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-      }
-
-      span {
-        color: #2e3edf;
-      }
-
-      a {
-        background-color: #2e3edf;
-        border-radius: 40px;
-        padding: 12px 24px;
-      }
-
-      .email-content {
+  </head>
+  <body
+    style="
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      padding: 10px;
+      font-size: 16px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    "
+  >
+    <img
+      src="http://localhost:4200/assets/img/Logo.svg"
+      alt="Videoflix Logo"
+      width="250"
+      style="display: block; margin: 0 auto"
+    />
+    <div
+      class="email-content"
+      style="
         display: flex;
         justify-content: start;
         gap: 24px;
-      }
-    </style>
-  </head>
-  <body>
-    <img
-      src="http://localhost:4200/assets/img/Logo.svg"
-      alt="Your Logo"
-      width="250"
-    />
-    <div class="email-content">
-      <h2>Dear <span>{{ username }}</span>,</h2>
+        flex-direction: column;
+        text-align: left;
+      "
+    >
+      <h2>Dear <span style="color: #2e3edf">{{ username }}</span>,</h2>
       <p>
-        Thank you for registering with <span>Videoflix</span>. To complete your
-        registration verify your address, please click the link below:
+        Thank you for registering with
+        <span style="color: #2e3edf">Videoflix</span>. To complete your
+        registration and verify your email address, please click the link below:
       </p>
-      <p><a href="{{ verification_link }}">Activate account</a></p>
+      <p>
+        <a
+          href="{{ verification_link }}"
+          style="
+            background-color: #2e3edf;
+            border-radius: 40px;
+            padding: 12px 24px;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+          "
+          >Activate account</a
+        >
+      </p>
       <p>
         If you did not create an account with us, please disregard this email.
       </p>
-      <p>Best regards,<br />Your Videoflix Team.</p>
+      <p>Best regards,</p>
+      <p>Your Videoflix Team.</p>
     </div>
   </body>
 </html>
