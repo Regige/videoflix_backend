@@ -19,7 +19,7 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from django.views.decorators.vary import vary_on_cookie, vary_on_headers
 
 
-CACHETTL = getattr(settings, 'CACHETTL', DEFAULT_TIMEOUT)
+CACHETTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
 # # @vary_on_cookie
@@ -39,8 +39,8 @@ class VideoListAPIView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
-    # @method_decorator(cache_page(CACHETTL))
-    # @method_decorator(vary_on_headers("Authorization"))
+    @method_decorator(cache_page(CACHETTL))
+    @method_decorator(vary_on_headers("Authorization"))
     def get(self, request, *args, **kwargs):
         queryset = Video.objects.all()
         serializer = VideoSerializer(queryset, many=True)

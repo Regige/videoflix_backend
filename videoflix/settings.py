@@ -74,15 +74,19 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
-CACHES = {    
-    "default": {        
-        "BACKEND": "django_redis.cache.RedisCache",        
-        "LOCATION": "redis://127.0.0.1:6379/1",        
-        "OPTIONS": {  
-            "PASSWORD": 'foobared',          
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"        
-            },        
-        "KEY_PREFIX": "videoflix"    
+
+redis_user = os.environ.get('redis_user')
+redis_password = os.environ.get('redis_password')
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': f'redis://{redis_user}:{redis_password}@127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            'PASSWORD': os.environ.get('redis_password'),
+        },
+        "KEY_PREFIX": "videoflix"  
     }
 }
 
