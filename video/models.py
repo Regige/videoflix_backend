@@ -8,6 +8,7 @@ class Video(models.Model):
     category = models.CharField(max_length=100)
     is_new = models.BooleanField(default=False)
     thumbnail = models.ImageField(upload_to='videos/thumbs', blank=True, null=True)
+    thumbnail_bg = models.ImageField(upload_to='videos/thumbs', blank=True, null=True)
     video_file = models.FileField(upload_to='videos', blank=True, null=True)
     
     def __str__(self):
