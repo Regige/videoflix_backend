@@ -37,10 +37,11 @@
 
    ```dotenv
    SECRET_KEY=MY_SECRET_KEY
-   redis_user=your_redis_username
-   redis_password=your_redis_password
-   user_email=your_email@example.com
-   user_key=your_email_password_or_app_key
+   REDIS_USER=your_redis_username
+   REDIS_PASSWORD=your_redis_password
+   EMAIL_HOST=your_host.com
+   EMAIL_HOST_USER=your_email@example.com
+   EMAIL_HOST_KEY=your_email_password_or_app_key
    ```
 
 5. **Apply migrations and run the development server**:
