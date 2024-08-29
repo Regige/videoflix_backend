@@ -207,9 +207,7 @@ RQ_QUEUES = {
         'DEFAULT_TIMEOUT': 360
     }
 }
-    # 'USERNAME': 'some-user',
-    #   'PASSWORD': 'foobared',
-    
+
     
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/staticfiles')
 

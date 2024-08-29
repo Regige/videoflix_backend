@@ -22,19 +22,6 @@ from django.views.decorators.vary import vary_on_cookie, vary_on_headers
 CACHETTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
-# # @vary_on_cookie
-# @authentication_classes([JWTAuthentication])
-# @permission_classes([IsAuthenticated])
-# # @cache_page(CACHETTL)
-# @cache_page(60 * 15)
-# @api_view(["GET"])
-# def get_video_list(request):
-#     queryset = Video.objects.all()
-#     serializer = VideoSerializer(queryset, many=True)
-#     return Response(serializer.data)
-
-
-
 class VideoListAPIView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -46,66 +33,3 @@ class VideoListAPIView(APIView):
         serializer = VideoSerializer(queryset, many=True)
         return Response(serializer.data)
     
-    
-# @login_required(login_url='/login/')
-# @cache_page(CACHETTL)
-# def index(request):
-#     queryset = Video.objects.all()
-#     serializer = VideoSerializer(queryset, many=True)
-#     return Response(serializer.data)
-   
-    
-
-# class VideoListAPIView(APIView):
-#     authentication_classes = [JWTAuthentication]
-#     permission_classes = [IsAuthenticated]
-
-#     # @method_decorator(cache_page(CACHETTL))
-#     def get(self, request, *args, **kwargs):
-#         cache_key = 'videos_all'
-#         cached_data = cache.get(cache_key)
-
-#         if not cached_data:
-#             # Abrufen der Video-Datenbankeinträge, wenn kein Cache vorhanden ist
-#             queryset = Video.objects.all()
-#             serializer = VideoSerializer(queryset, many=True)
-#             cached_data = serializer.data
-#             # Speichern der Daten im Cache
-#             cache.set(cache_key, cached_data, timeout=CACHETTL)
-            
-#         return Response(cached_data)
-
-
-
-
-# @cache_page(CACHETTL)
-# class VideoViewSet(viewsets.ReadOnlyModelViewSet):
-    
-#     authentication_classes = [JWTAuthentication] 
-#     permission_classes = [IsAuthenticated]
-    
-#     serializer_class = VideoSerializer
-    
-#     def get_queryset(self):
-#         return Video.objects.all()
-
-
-
-
-# class VideoViewSet(viewsets.ViewSet):
-#     authentication_classes = [JWTAuthentication]
-#     permission_classes = [IsAuthenticated]
-#     """
-#     A simple ViewSet for listing or retrieving users.
-#     """
-#     def list(self, request):
-#         cache_key = 'video_list'
-#         cached_data = cache.get(cache_key)
-#         if cached_data:
-#             return Response(cached_data)
-
-#         queryset = Video.objects.all()
-#         serializer = VideoSerializer(queryset, many=True)
-#         response_data = serializer.data
-#         cache.set(cache_key, response_data, CACHETTL)
-#         return Response(response_data)

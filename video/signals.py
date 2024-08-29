@@ -12,9 +12,6 @@ def video_post_save(sender, instance, created, **kwargs):
         queue.enqueue(convert720p, instance.video_file.path)
         queue.enqueue(convert480p, instance.video_file.path)
         queue.enqueue(convert1080p, instance.video_file.path)
-        # convert480p(instance.video_file.path)
-        # convert720p(instance.video_file.path)
-        # convert1080p(instance.video_file.path)
 
     
 # post_save.connect(video_post_save, sender=Video)

@@ -49,8 +49,7 @@ class SignUp(GenericAPIView):
             'username': user['username'],
             'verification_link': absurl,
         })
-        # email_body = 'Hi '+user['username'] + \
-        #     ' Use the link below to verify your email \n' + absurl
+
         data = {'email_body': email_body, 'to_email': user['email'],
                 'email_subject': 'Verify your email'}
 
@@ -75,25 +74,10 @@ class VerifyEmail(GenericAPIView ):
             if not user.is_verified:
                 user.is_verified = True
                 user.save()
-                
-            # return response.Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
-            # Redirect to the frontend success page
+
             return redirect('http://localhost:4200/main-page')
         except jwt.ExpiredSignatureError as identifier:
-            # return response.Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
-            # Redirect to the frontend error page with the expired token message
             return redirect('https://yourfrontend.com/error?message=Activation Expired')
         except jwt.exceptions.DecodeError as identifier:
-            # return response.Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
-            # Redirect to the frontend error page with the invalid token message
             return redirect('https://yourfrontend.com/error?message=Invalid Token')
 
-
-
-# @api_view(["POST",])
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
-# def logout_user(request):
-#     if request.method == "POST":
-#         request.user.auth_token.delete()
-#         return Response({"Message": "You are logged out"}, status=status.HTTP_200_OK)

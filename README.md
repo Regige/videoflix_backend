@@ -52,7 +52,21 @@
    ```
 
 6. **Start the Redis worker**:
-   Ensure that the `redis-server` is running, then start the RQ worker:
+   Ensure that the `redis-server` is running:
+
+   ```bash
+   redis-server
+   ```
+
+   Open redis cli and setup username and password in redis:
+
+   ```bash
+   redis-cli
+   ACL SETUSER your_username on >your_password ~* +@all
+   ```
+
+   Then start the RQ worker:
+
    ```bash
    python manage.py rqworker
    ```
@@ -61,9 +75,9 @@
 
 - The backend is primarily interacted with through its REST API.
 - Example endpoints:
-  - **User Registration/Login**: `POST /api/auth/register/`, `POST /api/auth/login/`
-  - **Fetch Videos**: `GET /api/videos/`
-  - **Password Reset**: `POST /api/auth/password-reset/`
+  - **User Registration/Login**: `POST /accounts/`, `POST /accounts/api/token/`
+  - **Fetch Videos**: `GET /videos/all/`
+  - **Password Reset**: `POST /accounts/password_reset/`
 
 ## Configuration
 
@@ -79,6 +93,8 @@ Install the required dependencies using:
 ```bash
 pip install -r requirements.txt
 ```
+
+This project was created with Python version 3.9.6. Ensure you are using this version or a compatible one.
 
 ## Documentation
 
