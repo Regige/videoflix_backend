@@ -25,7 +25,7 @@ import json
 from django.conf import settings
 from django.conf.urls.static import static
 from debug_toolbar.toolbar import debug_toolbar_urls
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -48,5 +48,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('videos/', include('video.urls')),
     path('django-rq/', include('django_rq.urls'))
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) + debug_toolbar_urls()
+]  + staticfiles_urlpatterns() + debug_toolbar_urls()
 
+#  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) + debug_toolbar_urls()
