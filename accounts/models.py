@@ -64,7 +64,7 @@ class CustomUser(AbstractUser):
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
     # Baue den Reset-Link
-    reset_link = "{}{}".format(instance.request.build_absolute_uri("http://localhost:4200/reset-password-form/"), reset_password_token.key)
+    reset_link = "{}{}".format(instance.request.build_absolute_uri("https://videoflix.regina-gering.com/reset-password-form/"), reset_password_token.key)
 
     # Render das HTML-Template mit den Variablen
     email_html_message = render_to_string('reset_password.html', {
@@ -91,3 +91,4 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
     # Sende die E-Mail
     email.send()
+

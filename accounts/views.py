@@ -75,9 +75,9 @@ class VerifyEmail(GenericAPIView ):
                 user.is_verified = True
                 user.save()
 
-            return redirect('http://localhost:4200/main-page')
+            return redirect('https://videoflix.regina-gering.com/main-page')
         except jwt.ExpiredSignatureError as identifier:
-            return redirect('https://yourfrontend.com/error?message=Activation Expired')
+            return redirect('https://videoflix.regina-gering.com/error?message=Activation Expired')
         except jwt.exceptions.DecodeError as identifier:
-            return redirect('https://yourfrontend.com/error?message=Invalid Token')
+            return redirect('https://videoflix.regina-gering.com/error?message=Invalid Token')
 
