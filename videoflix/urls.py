@@ -48,6 +48,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('videos/', include('video.urls')),
     path('django-rq/', include('django_rq.urls'))
-]   + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) + debug_toolbar_urls() + staticfiles_urlpatterns()
+]   + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) + debug_toolbar_urls()
 
+# + debug_toolbar_urls() + staticfiles_urlpatterns()
 # + debug_toolbar_urls()
