@@ -32,8 +32,23 @@
    ```bash
    pip install -r requirements.txt
    ```
+   
+4. **Install FFmpeg**:
+   
+   FFmpeg is required for processing video files. Follow the [official installation guide](https://ffmpeg.org/download.html) to install FFmpeg on your system.
+    
+5. **Install PostgreSQL**:
+   
+   This project uses PostgreSQL as the default database. Install PostgreSQL by following the instructions for your operating system on the [official PostgreSQL website](https://www.postgresql.org/download).
+   After installation:
+   - Create a new PostgreSQL database.
+   - Update your `settings.py` with the database credentials.
+     
+6. **Alternative: Use SQLite**:
 
-4. **Set up environment variables**:
+   If you prefer, you can use SQLite instead of PostgreSQL. The configuration for SQLite is already included in `settings.py`, but it is commented out. Uncomment the SQLite settings and comment out the PostgreSQL settings to switch.
+   
+7. **Set up environment variables**:
    Create a `.env` file in the root directory with the following variables:
 
    ```dotenv
@@ -43,16 +58,21 @@
    EMAIL_HOST=your_host.com
    EMAIL_HOST_USER=your_email@example.com
    EMAIL_HOST_KEY=your_email_password_or_app_key
+   DATABASE_NAME=your_postgres_db_name
+   DATABASE_USER=your_postgres_user
+   DATABASE_PASSWORD=your_postgres_password
+   DATABASE_HOST=your_postgres_host
+   DATABASE_PORT=your_postgres_port
    ```
 
-5. **Apply migrations and run the development server**:
+8. **Apply migrations and run the development server**:
 
    ```bash
    python manage.py migrate
    python manage.py runserver
    ```
 
-6. **Start the Redis worker**:
+7. **Start the Redis worker**:
    Ensure that the `redis-server` is running:
 
    ```bash
@@ -82,10 +102,13 @@
 
 ## Configuration
 
-- **Database**: Uses SQLite by default, configured in `settings.py`.
+- **Database**:
+   - The project uses PostgreSQL by default. Update the database credentials in `.env` and `settings.py`.
+   - To use SQLite instead, modify `settings.py` as described in the installation section.
 - **Cache**: Configured with Redis.
 - **Authentication**: JWT-based, with access and refresh token lifetimes set in `SIMPLE_JWT`.
 - **Email**: Configured to use Gmail's SMTP service for email functionalities like password resets.
+- **Video Processing**: Requires FFmpeg to process and manage video files.
 
 ## Dependencies
 
@@ -101,12 +124,16 @@ This project was created with Python version 3.9.6. Ensure you are using this ve
 
 - Further details on Django settings can be found in the [official Django documentation](https://docs.djangoproject.com/en/4.2/topics/settings/).
 - For Django Rest Framework, visit [DRF documentation](https://www.django-rest-framework.org/).
+- Learn more about PostgreSQL from the [official PostgreSQL website](https://www.postgresql.org/download).
 
 ## Troubleshooting
 
 - **CORS issues**: Ensure the frontend's origin is listed in `CORS_ALLOWED_ORIGINS`.
-- **Database Errors**: Make sure migrations are applied correctly.
+- **Database Errors**:
+   - Make sure migrations are applied correctly.
+   - Ensure the correct database credentials are set in `.env`.
 - **Redis Connection**: Verify Redis is running and accessible with the correct credentials.
+- **FFmpeg Errors**: Ensure FFmpeg is installed and added to your system's PATH.
 
 ## Contributors
 
