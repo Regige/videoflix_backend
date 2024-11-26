@@ -21,8 +21,9 @@
 
 2. **Create a virtual environment**:
 
+   It is recommended to use Python version 3.9.6 to ensure compatibility:
    ```bash
-   python -m venv venv
+   python3.9 -m venv venv
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
 
