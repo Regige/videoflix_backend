@@ -23,8 +23,8 @@
 
    It is recommended to use Python version 3.9.6 to ensure compatibility:
    ```bash
-   python3.9 -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   python3 -m venv env
+   source env/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
 
 3. **Install dependencies**:
